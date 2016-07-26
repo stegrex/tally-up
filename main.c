@@ -3,8 +3,7 @@
 #include <string.h>
 #include "TallyLog.h"
 
-static int
-upsert(int argc, char *argv[])
+static int upsert(int argc, char *argv[])
 {
     if (argc != 5) {
         printf("Input: UUID timestamp actionString\n");
@@ -14,14 +13,12 @@ upsert(int argc, char *argv[])
     return 0;
 }
 
-char *
-getLogString(int argc, char *argv[], char *outputString)
+char * getLogString(int argc, char *argv[], char *outputString)
 {
     return getLogContents(outputString);
 }
 
-char *
-getLogStringByKey(int argc, char *argv[], char *outputString)
+char * getLogStringByKey(int argc, char *argv[], char *outputString)
 {
     return getLogContentsByKey(argv[2], outputString);
 }

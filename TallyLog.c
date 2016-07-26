@@ -12,8 +12,7 @@ struct TallyLog {
     unsigned short int  action;
 };
 
-static void
-logTallyToFile(struct TallyLog tallyLog)
+static void logTallyToFile(struct TallyLog tallyLog)
 {
     FILE *logFile;
     logFile = fopen(LOG_FILE_NAME, "a");
@@ -36,12 +35,7 @@ logTallyToFile(struct TallyLog tallyLog)
     fclose(logFile);
 }
 
-void
-logTally(
-    char *id,
-    unsigned long int timestamp,
-    char actionString[]
-)
+void logTally(char *id, unsigned long int timestamp, char actionString[])
 {
     struct TallyLog tallyLog;
     tallyLog.id = id;
@@ -54,8 +48,7 @@ logTally(
     logTallyToFile(tallyLog);
 }
 
-char *
-getLogContents(char *outputString)
+char *getLogContents(char *outputString)
 {
     FILE *logFile;
     logFile = fopen(LOG_FILE_NAME, "r");
@@ -70,8 +63,7 @@ getLogContents(char *outputString)
     return outputString;
 }
 
-char *
-getLogContentsByKey(char *key, char *outputString)
+char *getLogContentsByKey(char *key, char *outputString)
 {
     FILE *logFile;
     logFile = fopen(LOG_FILE_NAME, "r");
