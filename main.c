@@ -14,16 +14,16 @@ upsert(int argc, char *argv[])
     return 0;
 }
 
-void
-dump(int argc, char *argv[])
+char *
+getLogString(int argc, char *argv[], char *outputString)
 {
-    dumpLog();
+    return getLogContents(outputString);
 }
 
-void
-dumpByKey(int argc, char*argv[])
+char *
+getLogStringByKey(int argc, char *argv[], char *outputString)
 {
-    dumpLogByKey(&argv[2]);
+    return getLogContentsByKey(argv[2], outputString);
 }
 
 int main(int argc, char *argv[])
@@ -35,9 +35,17 @@ int main(int argc, char *argv[])
     if (strcmp(argv[1], "upsert") == 0) {
         return upsert(argc, argv);
     } else if (strcmp(argv[1], "dump") == 0) {
-        dump(argc, argv);
+        // Maximum log size is 16 bits.
+        // Need to rebalance logs when close to this size.
+        char *outputString = calloc(65536, sizeof(char));
+        outputString = getLogString(argc, argv, outputString);
+        printf("%s", outputString);
+        free(outputString);
     } else if (strcmp(argv[1], "dumpByKey") == 0) {
-        dumpByKey(argc, argv);
+        char *outputString = calloc(65536, sizeof(char));
+        outputString = getLogStringByKey(argc, argv, outputString);
+        printf("%s", outputString);
+        free(outputString);
     } else {
         return 1;
     }

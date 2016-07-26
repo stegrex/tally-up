@@ -54,8 +54,8 @@ logTally(
     logTallyToFile(tallyLog);
 }
 
-void
-dumpLog()
+char *
+getLogContents(char *outputString)
 {
     FILE *logFile;
     logFile = fopen(LOG_FILE_NAME, "r");
@@ -63,14 +63,15 @@ dumpLog()
     size_t len = 0;
     ssize_t read;
     while ((read = getline(&line, &len, logFile)) != -1) {
-        printf("%s", line);
+        strcat(outputString, line);
     }
     free(line);
     fclose(logFile);
+    return outputString;
 }
 
-void
-dumpLogByKey(char *key[])
+char *
+getLogContentsByKey(char *key, char *outputString)
 {
     FILE *logFile;
     logFile = fopen(LOG_FILE_NAME, "r");
@@ -82,10 +83,12 @@ dumpLogByKey(char *key[])
         char lineCpy[256];
         strcpy(lineCpy, line);
         token = strtok(lineCpy, " ");
-        if (strcmp(token, *key) == 0) {
-            printf("%s", line);
+        if (strcmp(token, key) == 0) {
+            //printf("%s", line);
+            strcat(outputString, line);
         }
     }
     free(line);
     fclose(logFile);
+    return outputString;
 }

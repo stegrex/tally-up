@@ -4,6 +4,6 @@ extern void logTally(
     char actionString[]
 );
 
-extern void dumpLog();
+extern char * getLogContents(char *outputString);
 
-extern void dumpLogByKey(char *key[]);
+extern char * getLogContentsByKey(char *key, char *outputString);
